@@ -1,0 +1,18 @@
+
+/* 一番TOP */
+.topDivStyle{
+  display: flex;
+  -webkit-align-items: center;
+}
+
+/*
+ * 行きたいところに〜のP
+ */
+.messagePStyle{
+  font-size: 20px;
+}
+
+/* 投票（いいね）の画像 */
+.textImgStyle{
+  width: 78px;
+}

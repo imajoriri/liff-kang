@@ -1,0 +1,88 @@
+.topDivStyle{
+  display: flex;
+}
+
+/* 左側の店情報 */
+.izakayaInfoDivStyle{
+  width: 78%;
+  height: 108px;
+  box-shadow: -2px 2px 13px 0 rgba(0,0,0,0.11);
+  border-radius: 10px;
+
+  display: flex;
+}
+.izakayaImgStyle{
+  width: 108px;
+  border-radius: 10px 0 0 10px;
+}
+
+.izakayaDetailDivStyle{
+  position: relative;
+  padding: 10px;
+}
+.tagDivStyle{
+  display: flex;
+  align-items: flex-start;
+  font-size: 14px;
+}
+.tagStyle{
+  background: #FF3F36;
+  font-size: 14px;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0px 5px 0 0;
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+.izakayaNameDivStyle p{
+  margin: 5px 0;
+  font-size: 14px;
+}
+.izakayaWalkDivStyle{
+  font-size: 13px;
+  color: #999999;
+  bottom: 10px;
+  position: absolute;
+}
+.izakayaWalkDivStyle p{
+  margin: 0;
+}
+
+/* 右側の予算とボタン */
+.checkDivStyle{
+  text-align: center;
+  width: 22%;
+  position: relative;
+}
+.budgetDivStyle{
+  margin-top: 5px;
+}
+.budgetTitlePStyle{
+  font-size: 12px;
+  line-height: 7px;
+  color: #AEAEAE;
+  margin: 10px 0 0 0;
+}
+.yenPStyle{
+  margin: 0;
+  background: linear-gradient(transparent 50%, yellow 30%);
+  display: inline;
+}
+.checkButtonDivStyle{
+  display: flex;
+  justify-content: center;
+}
+.checkButtonStyle{
+  width: 50px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #ff005e;
+  bottom: 0;
+  position: absolute;
+}
+.checkButtonDivStyle img{
+  width: 30px;
+}
