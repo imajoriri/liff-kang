@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 
-import sample from "./sample";
+import votePage from "./votePage";
 
 const reducer = combineReducers({
-  sample
+  votePage
 });
 
 export default reducer;
