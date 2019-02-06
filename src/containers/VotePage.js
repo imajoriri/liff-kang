@@ -9,6 +9,7 @@ import store from "./../store";
 import ToVoteMessage from "./../components/ToVoteMessage";
 import ToVoteIzakaya from "./../components/ToVoteIzakaya";
 import UnderButton from "./../components/UnderButton";
+import Loading from "./../components/Loading";
 // actions
 import {
   fetchDB,
@@ -55,6 +56,8 @@ class VotePage extends Component {
 
     return(
       <div>
+        <Loading />
+
         <div className={style.toVoteMessageDivStyle}>
           <ToVoteMessage />
         </div>

@@ -5,6 +5,7 @@ import request from 'superagent'
 import { firebaseDb } from "./../firebase";
 import constant from "./../constant";
 import store from "./../store";
+import liff, { liffContext } from "./../liff";
 
 export const ACTIONS = {
   FETCH_DB: "FETCH_DB",
@@ -31,6 +32,7 @@ export async function fetchDB(planId){
   // アラートして画面閉じる TODO
   if(plan === null){
     alert("店を取得できませんでした。");
+    liff.closeWindow();
   }
 
   // shop idのリスト
@@ -51,10 +53,13 @@ export async function fetchDB(planId){
     });
 
   // voteモデルを取得する
-  var userId = "hoge"; // TODO
-  var vote;
+  //var userId = "hoge"; // TODO
+  var userId = liffContext.userId;
+  var vote = {};
   await firebaseDb.ref('/vote/' + planId).child(userId).once('value').then( data => {
-    vote = data.val();
+    if(data.val()){
+      vote = data.val();
+    }
   }).catch( err => {
     alert("店を取得できませんでした。");
   });
@@ -99,36 +104,35 @@ export async function updateVoteData(){
 
   var planId = votePageState.planId;
   console.log(planId);
-  //var userId = liffContext.userId;
-  var userId = "hoge";
+  var userId = liffContext.userId;
+  //var userId = "hoge";
 
   // loadingを表示する
-  //document.getElementById("overlay").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
 
   // 保存。
   await firebaseDb.ref("/vote").child(planId).child(userId).set(vote)
     .then( async data => {
-      alert("完了");
 
       // 画面を閉じて、メッセージを送る
-      //await liff.sendMessages([
-      //  {
-      //    type:'text',
-      //    text:'投票が完了しました。'
-      //  },
-      //]).then(() => {
-      //  // 画面を閉じる
-      //  liff.closeWindow();
-      //}).catch((err) => {
-      //  alert("正常に作成できませんでした。");
-      //});
+      await liff.sendMessages([
+        {
+          type:'text',
+          text:'投票が完了しました。'
+        },
+      ]).then(() => {
+        // 画面を閉じる
+        liff.closeWindow();
+      }).catch((err) => {
+        alert("正常に作成できませんでした。");
+      });
 
     }).catch( err => {
       console.log("error");
     });
 
   // loadingを非表示に
-  //document.getElementById("overlay").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
 
   return {
     type: ACTIONS.UPDATE_VOTE,
