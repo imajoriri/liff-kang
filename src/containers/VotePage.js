@@ -8,10 +8,12 @@ import store from "./../store";
 // components
 import ToVoteMessage from "./../components/ToVoteMessage";
 import ToVoteIzakaya from "./../components/ToVoteIzakaya";
+import UnderButton from "./../components/UnderButton";
 // actions
 import {
-  fetchPlanModel,
+  fetchDB,
   clickVote,
+  updateVoteData,
 } from "./../actions/votePage";
 
 class VotePage extends Component {
@@ -27,7 +29,7 @@ class VotePage extends Component {
     console.log(planId);
 
     // planモデルと、shop情報を取得
-    this.props.fetchPlanModel(planId);
+    this.props.fetchDB(planId);
   }
 
   render(){
@@ -60,6 +62,13 @@ class VotePage extends Component {
         <div className={style.toVoteIzakayaListDivStyle}>
           {ToVoteIzakayaList}
         </div>
+
+        <div className={style.finishButtonDivStyle}>
+          <UnderButton 
+            text="完了"
+            onClick={this.props.updateVoteData}
+          />
+        </div>
       </div>
     )
   }
@@ -72,8 +81,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     //onChange: (e) => dispatch(registerMemo.onChange(e)),
-    fetchPlanModel: (planId) => dispatch(fetchPlanModel(planId)),
+    fetchDB: (planId) => dispatch(fetchDB(planId)),
     clickVote: (shopId) => dispatch(clickVote(shopId)),
+    updateVoteData: () => dispatch(updateVoteData()),
   }
 }
 

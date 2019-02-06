@@ -7,8 +7,9 @@ import constant from "./../constant";
 import store from "./../store";
 
 export const ACTIONS = {
-  FETCH_PLAN_MODEL: "FETCH_PLAN_MODEL",
+  FETCH_DB: "FETCH_DB",
   CLICK_VOTE: "CLICK_VOTE",
+  UPDATE_VOTE: "UPDATE_VOTE",
 }
 
 // action creatore
@@ -16,7 +17,7 @@ export const ACTIONS = {
 /*
  * 画面を開いた時にDBからPlanモデルを読み込み、Lambda経由で居酒屋情報を取得する
  */
-export async function fetchPlanModel(planId){
+export async function fetchDB(planId){
 
   // DBからPlanモデルを取得する
   var plan;
@@ -49,10 +50,21 @@ export async function fetchPlanModel(planId){
     }).catch( err => {
     });
 
+  // voteモデルを取得する
+  var userId = "hoge"; // TODO
+  var vote;
+  await firebaseDb.ref('/vote/' + planId).child(userId).once('value').then( data => {
+    vote = data.val();
+  }).catch( err => {
+    alert("店を取得できませんでした。");
+  });
+
   return {
-    type: ACTIONS.FETCH_PLAN_MODEL,
+    type: ACTIONS.FETCH_DB,
     plan: plan,
+    planId: planId,
     rest: rest,
+    vote: vote,
   }
 }
 
@@ -76,3 +88,51 @@ export async function clickVote(shopId){
     vote: vote
   }
 }
+
+/*
+ * 完了ボタンを押した時。
+ * DBに保存し、画面を閉じる
+ */
+export async function updateVoteData(){
+  var votePageState = store.getState().votePage;
+  var vote = votePageState.vote;
+
+  var planId = votePageState.planId;
+  console.log(planId);
+  //var userId = liffContext.userId;
+  var userId = "hoge";
+
+  // loadingを表示する
+  //document.getElementById("overlay").style.display = "block";
+
+  // 保存。
+  await firebaseDb.ref("/vote").child(planId).child(userId).set(vote)
+    .then( async data => {
+      alert("完了");
+
+      // 画面を閉じて、メッセージを送る
+      //await liff.sendMessages([
+      //  {
+      //    type:'text',
+      //    text:'投票が完了しました。'
+      //  },
+      //]).then(() => {
+      //  // 画面を閉じる
+      //  liff.closeWindow();
+      //}).catch((err) => {
+      //  alert("正常に作成できませんでした。");
+      //});
+
+    }).catch( err => {
+      console.log("error");
+    });
+
+  // loadingを非表示に
+  //document.getElementById("overlay").style.display = "none";
+
+  return {
+    type: ACTIONS.UPDATE_VOTE,
+  }
+}
+
+
