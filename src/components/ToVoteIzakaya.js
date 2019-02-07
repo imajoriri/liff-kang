@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 // 内部モジュール
 import style from "./style/ToVoteIzakaya.css";
+import liff, { liffContext } from "./../liff";
 // 画像
 import goodImgURL from "./../images/good.png";
 import textImgURL from "./../images/text.png";
@@ -10,6 +11,15 @@ import sampleIzakayaURL from "./../images/sampleIzakaya.png";
 class ToVoteIzakaya extends Component {
   constructor(props){
     super(props);
+  }
+
+  // urlのページをLIFFの機能で開く
+  openPage(url){
+    liff.openWindow({
+      url:url,
+      external: false,
+    });
+    return;
   }
 
   render(){
@@ -25,7 +35,10 @@ class ToVoteIzakaya extends Component {
       <div className={style.topDivStyle}>
 
         {/* 左側の居酒屋情報 */}
-        <div className={style.izakayaInfoDivStyle}>
+        <div 
+          className={style.izakayaInfoDivStyle}
+          onClick={(url) => this.openPage(this.props.urlMobile)}
+        >
           <img 
             src={sampleIzakayaURL}
             src={this.props.imgURL}

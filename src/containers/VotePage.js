@@ -33,13 +33,16 @@ class VotePage extends Component {
     this.props.fetchDB(planId);
   }
 
+  
   render(){
     var votePageState = store.getState().votePage;
     var vote = votePageState.vote;
 
     var ToVoteIzakayaList = Object.keys(votePageState.rest).map( (e, i) => {
       return (
-        <div className={style.toVoteIzakayaDivStyle}>
+        <div 
+          className={style.toVoteIzakayaDivStyle}
+        >
           <ToVoteIzakaya 
             shopId={votePageState.rest[e].id}
             name={votePageState.rest[e].name}
@@ -47,6 +50,7 @@ class VotePage extends Component {
             imgURL={votePageState.rest[e].image_url.shop_image1}
             walk={votePageState.rest[e].access.walk}
             tag={votePageState.rest[e].code.category_name_s}
+            urlMobile={votePageState.rest[e].url_mobile}
             isChecked={Object.keys(vote).indexOf(votePageState.rest[e].id) >= 0}
             clickVote={this.props.clickVote}
           />

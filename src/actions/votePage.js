@@ -20,6 +20,9 @@ export const ACTIONS = {
  */
 export async function fetchDB(planId){
 
+  // loadingを表示する
+  document.getElementById("overlay").style.display = "block";
+
   // DBからPlanモデルを取得する
   var plan;
   await firebaseDb.ref('/plan/' + planId).once('value').then( data => {
@@ -63,6 +66,9 @@ export async function fetchDB(planId){
   }).catch( err => {
     alert("店を取得できませんでした。");
   });
+
+  // loadingを非表示に
+  document.getElementById("overlay").style.display = "none";
 
   return {
     type: ACTIONS.FETCH_DB,
