@@ -56,8 +56,8 @@ export async function fetchDB(planId){
     });
 
   // voteモデルを取得する
-  //var userId = "hoge"; // TODO
-  var userId = liffContext.userId;
+  var userId = "hoge"; // TODO
+  //var userId = liffContext.userId;
   var vote = {};
   await firebaseDb.ref('/vote/' + planId).child(userId).once('value').then( data => {
     if(data.val()){
